@@ -22,7 +22,7 @@ public class Clicking : MonoBehaviour, IPointerClickHandler, IPointerDownHandler
     void Start() {
         FinalStrike = 0;
         startingPos = this.GetComponent<RectTransform>().anchoredPosition;
-        InfoCanvas = GameObject.Find("Card Image");
+        InfoCanvas = GameObject.Find("Illustration Image");
         // to get the sprite, need to go through the grandchildren
         theSprite = this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite;
         thePower = (RuntimeAnimatorController)Resources.Load("Animation/PowerUp");
