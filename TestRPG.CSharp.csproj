@@ -74,13 +74,22 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\ButtonClick.cs" />
-    <Compile Include="Assets\Clicking.cs" />
-    <Compile Include="Assets\OnEnemyClick.cs" />
-    <Compile Include="Assets\OnHit.cs" />
-    <Compile Include="Assets\OnHover.cs" />
-    <Compile Include="Assets\Spinning.cs" />
-    <Compile Include="Assets\StartingGame.cs" />
+    <Compile Include="Assets\Ability Scripts\Ability.cs" />
+    <Compile Include="Assets\Ability Scripts\AbilityDescription.cs" />
+    <Compile Include="Assets\Ability Scripts\ApplyAbility.cs" />
+    <Compile Include="Assets\Ability Scripts\ApplyCharacter.cs" />
+    <Compile Include="Assets\Ability Scripts\BaseAbility.cs" />
+    <Compile Include="Assets\Ability Scripts\BaseCharacter.cs" />
+    <Compile Include="Assets\Ability Scripts\Character.cs" />
+    <Compile Include="Assets\Ability Scripts\Fury.cs" />
+    <Compile Include="Assets\Game Component\ButtonClick.cs" />
+    <Compile Include="Assets\Game Component\Clicking.cs" />
+    <Compile Include="Assets\Game Component\OnEnemyClick.cs" />
+    <Compile Include="Assets\Game Component\OnHit.cs" />
+    <Compile Include="Assets\Game Component\OnHover.cs" />
+    <Compile Include="Assets\Game Component\OwnEditor.cs" />
+    <Compile Include="Assets\Game Component\Spinning.cs" />
+    <Compile Include="Assets\Game Component\StartingGame.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\materials\NewUnlitShader.shader" />
