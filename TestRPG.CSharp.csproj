@@ -80,10 +80,13 @@
     <Compile Include="Assets\Ability Scripts\ApplyCharacter.cs" />
     <Compile Include="Assets\Ability Scripts\BaseAbility.cs" />
     <Compile Include="Assets\Ability Scripts\BaseCharacter.cs" />
+    <Compile Include="Assets\Ability Scripts\ButtonBehavior.cs" />
     <Compile Include="Assets\Ability Scripts\Character.cs" />
     <Compile Include="Assets\Ability Scripts\Fury.cs" />
+    <Compile Include="Assets\Game Component\ActionSetDisplay.cs" />
     <Compile Include="Assets\Game Component\ButtonClick.cs" />
     <Compile Include="Assets\Game Component\Clicking.cs" />
+    <Compile Include="Assets\Game Component\HealthBar.cs" />
     <Compile Include="Assets\Game Component\OnEnemyClick.cs" />
     <Compile Include="Assets\Game Component\OnHit.cs" />
     <Compile Include="Assets\Game Component\OnHover.cs" />

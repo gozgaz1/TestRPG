@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ApplyAbility : MonoBehaviour {
-    public AbilityClass theAbility;
+    //public BaseAbility theAbility;
+    public BaseAbility[] AbilityList = new BaseAbility[8];
     // Use this for initialization
     void Start () {
 		
@@ -11,8 +12,8 @@ public class ApplyAbility : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
 	}
 
     public void Initialize() { }
+
 }

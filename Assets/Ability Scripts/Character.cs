@@ -16,7 +16,8 @@ public abstract class CharacterClass : ScriptableObject{
     public int Defiance = 1;
     public int Stamina = 1;
     public int Fortification = 20;
-    public enum SkillSets { };
+    public int currentHP = 1;
+    public ArrayList SkillSets = new ArrayList();
 
     public abstract void Initialize(GameObject obj);
 }

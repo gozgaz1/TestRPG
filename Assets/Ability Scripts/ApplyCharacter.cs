@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ApplyCharacter : MonoBehaviour {
-    public CharacterClass theChar;
+    public BaseCharacterClass theChar;
     // Use this for initialization
 	void Start () {
 		
@@ -12,10 +12,13 @@ public class ApplyCharacter : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        if (theChar.currentHP < 0)
+            theChar.currentHP = 0;
     }
 
     public void Initialize() {
-       
+
     }
+
 
 }

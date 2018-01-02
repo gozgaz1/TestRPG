@@ -9,6 +9,11 @@ public class BaseAbility : AbilityClass {
     public override void Initialize(GameObject obj) {
     }
 
+    public int SkillID {
+        get { return ID; }
+        set { ID = value; }
+    }
+
     public string SkillName
     {
         get { return AName; }
@@ -62,13 +67,30 @@ public class BaseAbility : AbilityClass {
         set { Passive = value; }
     }
 
+    public bool isPlayer
+    {
+        get { return PlayerChoose; }
+        set { PlayerChoose = value; }
+    }
+
+    public bool isEnemy
+    {
+        get { return EnemyChoose; }
+        set { EnemyChoose = value; }
+    }
+
+    public bool isSelective {
+        get { return Selective; }
+        set { Selective = value; }
+    }
+
     public int SkillAmountOfHit {
         get { return AmountOfHits; }
         set { AmountOfHits = value; }
     }
 
-    public object SkillEffect(int value) {
-        return ExtraEffect[value];
-    }
+    // public object SkillEffect(int value) {
+    //     return ExtraEffect[value];
+    // }
 
 }

@@ -9,7 +9,7 @@ public class BaseCharacterClass : CharacterClass{
 
     public override void Initialize(GameObject obj)
     {
-        
+        currentHP = HP;
     }
 
     public string CharacterName {
@@ -46,4 +46,13 @@ public class BaseCharacterClass : CharacterClass{
         get { return ADescription; }
         set { ADescription = value; }
     }
+
+    public void AddSkill(BaseAbility anAbility) {
+        SkillSets.Add(anAbility);
+    }
+
+    public void TakingDamage(int damage) {
+        currentHP -= damage;
+    }
+    
 }
