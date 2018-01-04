@@ -44,11 +44,6 @@ public class Clicking : MonoBehaviour, IPointerEnterHandler,IPointerClickHandler
     }
 
     public void OnPointerDown(PointerEventData eventData) {
-        //Debug.Log("Clicking Object");
-        //Debug.Log("Charater HP: " + this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<ApplyCharacter>().theChar.currentHP);
-        //Debug.Log("From Clicking: " + this.tag);
-        //currentHP = this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<ApplyCharacter>().theChar.HP;
-        //Debug.Log("From Clicking:" + currentHP);
 
         this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<HealthBar>().SetHealth(this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<MonitorHP>().temptHP, this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<ApplyCharacter>().theChar.HP);
         this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<ActionSetDisplay>().AccessSkills();
@@ -78,13 +73,6 @@ public class Clicking : MonoBehaviour, IPointerEnterHandler,IPointerClickHandler
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        //Debug.Log("Done Clicking");
-        //HitCounter++;
-        //this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<ApplyCharacter>().theChar.TakingDamage(10);
-        //if (currentHP > 0)
-        //    currentHP -= 10;
-        //else if (currentHP <= 0)
-        //    currentHP = 0;
         this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<HealthBar>().SetHealth(this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<MonitorHP>().temptHP, this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<ApplyCharacter>().theChar.HP);
         Debug.Log(this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<MonitorHP>().temptHP);
     }
@@ -97,10 +85,13 @@ public class Clicking : MonoBehaviour, IPointerEnterHandler,IPointerClickHandler
         //if (this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<MonitorHP>().temptHP <= 0) {
         //    StatusOn = false;
             //this.transform.GetChild(0).GetComponent<Animator>().enabled = false;
-            // tip to self: can't disable <Animator> component because Unity will free all resources from that component and thus
-            // literally destroy the component out of existence. Needs to find a new <Animator> or animation state to change to
-        //    this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().color = new Color32(137, 61, 61, 255);
+
         //}
     }
 
 }
+
+
+// tip to self: can't disable <Animator> component because Unity will free all resources from that component and thus
+// literally destroy the component out of existence. Needs to find a new <Animator> or animation state to change to
+//    this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().color = new Color32(137, 61, 61, 255);

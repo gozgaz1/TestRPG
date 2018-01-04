@@ -82,4 +82,7 @@ public class ButtonBehavior : MonoBehaviour{
 //    Debug.Log(go.gameObject.name, go.gameObject);
 //}
 // for C#, compare string by using string.Equal(string2, StringComparison.OrdinalIgnoreCase)
-// for ignoring case
+// for ignoring case, should be System.StringComparison.OrdinalIgnoreCase
+
+
+// for this, theResult, as a List<RaycastResult>, takes in the lowest child to the highest, so list[0] is the lowest child gameObject
