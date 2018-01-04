@@ -13,10 +13,8 @@ public class Clicking : MonoBehaviour, IPointerEnterHandler,IPointerClickHandler
     public int FinalStrike;
     private Vector3 startingPos;
     //public GameObject InfoCanvas;
-   // private Sprite theSprite;
+    //private Sprite theSprite;
     private bool PowerOn = false;
-    private int currentHP;
-    private int totalHP;
     public bool StatusOn = true;
     private RuntimeAnimatorController thePower;
 
@@ -28,8 +26,6 @@ public class Clicking : MonoBehaviour, IPointerEnterHandler,IPointerClickHandler
         // to get the sprite, need to go through the grandchildren
         //theSprite = this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite;
         thePower = (RuntimeAnimatorController)Resources.Load("Animation/PowerUp");
-        currentHP = this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<ApplyCharacter>().theChar.HP;
-        totalHP = this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<ApplyCharacter>().theChar.HP;
     }
 
     public void OnPointerClick(PointerEventData eventData) {
@@ -50,8 +46,11 @@ public class Clicking : MonoBehaviour, IPointerEnterHandler,IPointerClickHandler
     public void OnPointerDown(PointerEventData eventData) {
         //Debug.Log("Clicking Object");
         //Debug.Log("Charater HP: " + this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<ApplyCharacter>().theChar.currentHP);
-        Debug.Log("From Clicking: " + this.tag);
-        this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<HealthBar>().SetHealth(currentHP, totalHP);
+        //Debug.Log("From Clicking: " + this.tag);
+        //currentHP = this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<ApplyCharacter>().theChar.HP;
+        //Debug.Log("From Clicking:" + currentHP);
+
+        this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<HealthBar>().SetHealth(this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<MonitorHP>().temptHP, this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<ApplyCharacter>().theChar.HP);
         this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<ActionSetDisplay>().AccessSkills();
         
     }
@@ -86,21 +85,22 @@ public class Clicking : MonoBehaviour, IPointerEnterHandler,IPointerClickHandler
         //    currentHP -= 10;
         //else if (currentHP <= 0)
         //    currentHP = 0;
+        this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<HealthBar>().SetHealth(this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<MonitorHP>().temptHP, this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<ApplyCharacter>().theChar.HP);
+        Debug.Log(this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<MonitorHP>().temptHP);
     }
 
     void Update() {
         if (FinalStrike >= 10) {
             PowerOn = true;
-            this.transform.GetChild(0).GetComponent<Animator>().runtimeAnimatorController = thePower;
+            //this.transform.GetChild(0).GetComponent<Animator>().runtimeAnimatorController = thePower;
         }
-        if (currentHP <= 0) {
-            StatusOn = false;
+        //if (this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<MonitorHP>().temptHP <= 0) {
+        //    StatusOn = false;
             //this.transform.GetChild(0).GetComponent<Animator>().enabled = false;
             // tip to self: can't disable <Animator> component because Unity will free all resources from that component and thus
             // literally destroy the component out of existence. Needs to find a new <Animator> or animation state to change to
-            this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().color = new Color32(137, 61, 61, 255);
-        }
-   
+        //    this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().color = new Color32(137, 61, 61, 255);
+        //}
     }
-  
+
 }

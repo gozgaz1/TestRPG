@@ -26,7 +26,6 @@ public class HealthBar : MonoBehaviour {
     public void SetHealth(int currentHP, int totalHP)
     {
         // perform update on health mostly, the actual calculation
-        HealthAmount = 1;
         HealthAmount = (float)currentHP / totalHP;
         //Debug.Log("Character HP Percentage: " + HealthAmount);
 
