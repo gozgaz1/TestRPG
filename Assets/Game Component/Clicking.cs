@@ -50,8 +50,10 @@ public class Clicking : MonoBehaviour, IPointerEnterHandler,IPointerClickHandler
     public void OnPointerDown(PointerEventData eventData) {
         //Debug.Log("Clicking Object");
         //Debug.Log("Charater HP: " + this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<ApplyCharacter>().theChar.currentHP);
+        Debug.Log("From Clicking: " + this.tag);
         this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<HealthBar>().SetHealth(currentHP, totalHP);
         this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<ActionSetDisplay>().AccessSkills();
+        
     }
 
     public void OnPointerEnter(PointerEventData eventData) {
@@ -80,10 +82,10 @@ public class Clicking : MonoBehaviour, IPointerEnterHandler,IPointerClickHandler
         //Debug.Log("Done Clicking");
         //HitCounter++;
         //this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<ApplyCharacter>().theChar.TakingDamage(10);
-        if (currentHP > 0)
-            currentHP -= 10;
-        else if (currentHP <= 0)
-            currentHP = 0;
+        //if (currentHP > 0)
+        //    currentHP -= 10;
+        //else if (currentHP <= 0)
+        //    currentHP = 0;
     }
 
     void Update() {
