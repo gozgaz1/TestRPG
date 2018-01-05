@@ -8,6 +8,7 @@ public class ButtonBehavior : MonoBehaviour{
     public BaseAbility mappedAbility;
     private bool targetSelected = false;
     //public int tempHP = Clicking.currentHP;
+    private GameObject currentPlayer;
 
     // Use this for initialization
     void Start()
@@ -23,28 +24,29 @@ public class ButtonBehavior : MonoBehaviour{
 
     public void UponClick() {
         // once the button or skill is selected, find a target for it
+        currentPlayer = Clicking.currentlySelectedTarget;
+        Debug.Log(currentPlayer);
         if (!targetSelected) {
             Debug.Log("Please select a target");
             if (mappedAbility.EnemyChoose)
-                StartCoroutine(WaitInput(this.transform.gameObject, "Enemy"));
+                StartCoroutine(WaitInput("Enemy"));
             else if (mappedAbility.PlayerChoose)
-                StartCoroutine(WaitInput(this.transform.gameObject, "Player"));
-            
+                StartCoroutine(WaitInput("Player"));
+                       
         }
         targetSelected = false;
     }
 
 
-    public IEnumerator WaitInput(GameObject theTarget, string tagging)
+    public IEnumerator WaitInput(string tagging)
     {
         while (!targetSelected)
         {
+            
             if (Input.GetMouseButtonDown(0))
             {
                 PointerEventData pointerData = new PointerEventData(EventSystem.current);
                 pointerData.position = Input.mousePosition;
-                //Debug.Log("Getting gameObject");
-                //if (EventSystem.current.IsPointerOverGameObject()) 
                 List<RaycastResult> theResult = new List<RaycastResult>();
                 EventSystem.current.RaycastAll(pointerData, theResult);
 
@@ -56,25 +58,30 @@ public class ButtonBehavior : MonoBehaviour{
                     //    Debug.Log(go.gameObject.name, go.gameObject);
                     //}
                     ApplyDamageAndHeal(theResult[0].gameObject);
-
+                    ApplySPReduction(currentPlayer);
                     targetSelected = true;
                 }
                 else
-                    //Debug.Log("Empty Target");
-                Debug.Log("Done Getting");
+                    Debug.Log("Empty Target");
+                //Debug.Log("Done Getting");
             }
             yield return null;
         }
     }
 
     public void ApplyDamageAndHeal(GameObject obj) {
-        obj.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<MonitorHP>().temptHP -= (mappedAbility.Damage * mappedAbility.AmountOfHits);
-        obj.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<MonitorHP>().temptHP += (mappedAbility.Heal * mappedAbility.AmountOfHits);
+        obj.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<MonitorHPAndSP>().temptHP -= (mappedAbility.Damage * mappedAbility.AmountOfHits);
+        obj.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<MonitorHPAndSP>().temptHP += (mappedAbility.Heal * mappedAbility.AmountOfHits);
+    }
+
+    public void ApplySPReduction(GameObject obj) {
+        obj.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<MonitorHPAndSP>().temptSP -= mappedAbility.Cost;
     }
 }
 
 // use EventSystem
 // right now: the event system only check for anything that's either an object or something with enabled raycast
+// you can try: if (EventSystem.current.IsPointerOverGameObject()) 
 // seems like you can also use PointerEventData to set the current RayCastAll
 //
 //foreach (var go in theResult)

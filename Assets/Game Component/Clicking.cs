@@ -17,6 +17,7 @@ public class Clicking : MonoBehaviour, IPointerEnterHandler,IPointerClickHandler
     private bool PowerOn = false;
     public bool StatusOn = true;
     private RuntimeAnimatorController thePower;
+    public static GameObject currentlySelectedTarget;
 
 
     void Start() {
@@ -35,7 +36,7 @@ public class Clicking : MonoBehaviour, IPointerEnterHandler,IPointerClickHandler
         //Debug.Log("Expected: " + (startingPos + moving));
         //Debug.Log("Info canvas is " + InfoCanvas.name);
         //Debug.Log("Image is " + theSprite);
-        if (PowerOn && StatusOn) {
+        if (PowerOn && StatusOn && this.transform.GetChild(0).GetChild(0).GetChild(0).tag.Equals("Player", System.StringComparison.OrdinalIgnoreCase)) {
             PowerOn = false;
             FinalStrike = 1;
             this.transform.GetChild(0).GetComponent<Animator>().runtimeAnimatorController = (RuntimeAnimatorController)Resources.Load("Animation/NormalMode");
@@ -44,9 +45,13 @@ public class Clicking : MonoBehaviour, IPointerEnterHandler,IPointerClickHandler
     }
 
     public void OnPointerDown(PointerEventData eventData) {
-
-        this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<HealthBar>().SetHealth(this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<MonitorHP>().temptHP, this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<ApplyCharacter>().theChar.HP);
-        this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<ActionSetDisplay>().AccessSkills();
+        currentlySelectedTarget = this.gameObject;
+        this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<HealthBar>().SetHealth(this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<MonitorHPAndSP>().temptHP, this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<ApplyCharacter>().theChar.HP);
+        if (this.transform.GetChild(0).GetChild(0).GetChild(0).tag.Equals("Player", System.StringComparison.OrdinalIgnoreCase))
+        {
+            this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<SPBehavior>().SetSP(this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<MonitorHPAndSP>().temptSP, this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<ApplyCharacter>().theChar.SP);
+            this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<ActionSetDisplay>().AccessSkills();
+        }
         
     }
 
@@ -73,20 +78,22 @@ public class Clicking : MonoBehaviour, IPointerEnterHandler,IPointerClickHandler
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<HealthBar>().SetHealth(this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<MonitorHP>().temptHP, this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<ApplyCharacter>().theChar.HP);
-        Debug.Log(this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<MonitorHP>().temptHP);
+        this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<HealthBar>().SetHealth(this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<MonitorHPAndSP>().temptHP, this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<ApplyCharacter>().theChar.HP);
+        if (this.transform.GetChild(0).GetChild(0).GetChild(0).tag.Equals("Player", System.StringComparison.OrdinalIgnoreCase))
+            this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<SPBehavior>().SetSP(this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<MonitorHPAndSP>().temptSP, this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<ApplyCharacter>().theChar.SP);
+        //Debug.Log(this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<MonitorHPAndSP>().temptHP);
     }
 
     void Update() {
-        if (FinalStrike >= 10) {
+        if (FinalStrike >= 10 && this.transform.GetChild(0).GetChild(0).GetChild(0).tag.Equals("PLayer", System.StringComparison.OrdinalIgnoreCase)) {
             PowerOn = true;
-            //this.transform.GetChild(0).GetComponent<Animator>().runtimeAnimatorController = thePower;
+            this.transform.GetChild(0).GetComponent<Animator>().runtimeAnimatorController = thePower;
         }
-        //if (this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<MonitorHP>().temptHP <= 0) {
-        //    StatusOn = false;
-            //this.transform.GetChild(0).GetComponent<Animator>().enabled = false;
-
-        //}
+        if (this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<MonitorHPAndSP>() != null && this.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<MonitorHPAndSP>().temptHP <= 0) {
+            StatusOn = false;
+            if (this.transform.GetChild(0).GetChild(0).GetChild(0).tag.Equals("Enemy", System.StringComparison.OrdinalIgnoreCase))
+                this.transform.GetComponentInChildren<Spinning>().SetSpinningToFalse();
+        }
     }
 
 }
