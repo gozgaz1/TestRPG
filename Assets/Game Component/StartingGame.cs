@@ -5,7 +5,7 @@ using UnityEngine;
 public class StartingGame : MonoBehaviour {
     private RuntimeAnimatorController blinker;
     private float startTime = 0;
-
+    
 	// Use this for initialization
 	void Start () {
 
