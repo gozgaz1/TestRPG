@@ -6,7 +6,7 @@ using UnityEngine;
 public class StartTurn : AvailableState, GameState{
 	private bool Availability = false;
 	// Use this for initialization
-	public float timing = 3;
+	public float timing = 1;
 	// Update is called once per frame
 
 	public int turnCounter = 0;
@@ -81,16 +81,6 @@ public class StartTurn : AvailableState, GameState{
         // startturn is where the enemies switch stuff
 
         // enemy will only switch if one of the following fits:
-        // a) from backrow: if enemy %hp is the lowest among backrow
-        // but higher than the < 50% hp and least among front row %hp units
-        // b) from frontrow: if enemy is below 50% hp and %hp is the lowest among frontrow
-        // switch with the higher hp from backrow
-        // c) from frontrow: if enemy can die from its attacker without killing it
-        // switch to backrow with higher attack and hp (prioritize on higher hp)
-        // d) from backrow: if enemy can heal/buff front row
-        // switch with the highest hp but lowest attack (prioritize on lowest attack)
-        // e) from backrow: if enemy can kill its attacker and survive
-        // switch with the least hp among front row
 
         // ** switching happens from front row first, then backrow (if necessary)
         // if all front row make a switch, don't need to check backrow
@@ -123,7 +113,7 @@ public class StartTurn : AvailableState, GameState{
             }
 
             else if (temptEnemyBoard[currentEnemy].Key == enemyBack) {
-                // 2 - if the enemy unit belongs to backrow and first skill can heal
+                // 2 - if the enemy unit belongs to backrow and first skill can heal range == 1
                 if (currentEnemy.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0).transform.GetComponent<ApplyAbility>().AbilityList[0].Heal != 0)
                 {
                     GameObject lowestHPEnemy = null;
