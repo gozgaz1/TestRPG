@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EndTurn : AvailableState, GameState{
-	public float endingIn = 1;
+	public float endingIn = (float)0.2;
 	private bool Availability = false;
 
     // Update is called once per frame

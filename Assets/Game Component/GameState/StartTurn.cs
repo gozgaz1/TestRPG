@@ -6,7 +6,7 @@ using UnityEngine;
 public class StartTurn : AvailableState, GameState{
 	private bool Availability = false;
 	// Use this for initialization
-	public float timing = 1;
+	public float timing = (float)0.2;
 	// Update is called once per frame
 
 	public int turnCounter = 0;
@@ -69,7 +69,7 @@ public class StartTurn : AvailableState, GameState{
         foreach (GameObject enemyUnit in EnemyBoard.Keys) {
             enemyUnit.transform.SetParent(EnemyBoard[enemyUnit].Key.transform);
             enemyUnit.transform.SetSiblingIndex(EnemyBoard[enemyUnit].Value);
-            //Debug.Log(enemyUnit + " at "+ EnemyBoard[enemyUnit]);
+            Debug.Log(enemyUnit + " at "+ EnemyBoard[enemyUnit]);
         }
     }
 
@@ -87,6 +87,7 @@ public class StartTurn : AvailableState, GameState{
 
 
         // 
+        
         Dictionary<GameObject, KeyValuePair<GameObject, int>> temptEnemyBoard = new Dictionary<GameObject, KeyValuePair<GameObject, int>> (EnemyBoard); // use this to create a 'changed' board, copy constructor
         foreach(GameObject currentEnemy in temptEnemyBoard.Keys) {
             if (temptEnemyBoard[currentEnemy].Key == enemyFront)
@@ -98,6 +99,7 @@ public class StartTurn : AvailableState, GameState{
                     {
                         if (neighborEnemy != currentEnemy &&
                             EnemyBoard[neighborEnemy].Key == enemyBack &&
+                            EnemyBoard[neighborEnemy].Value != temptEnemyBoard[currentEnemy].Value &&
                             neighborEnemy.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0).transform.GetComponent<MonitorHP>().temptHP > currentEnemy.transform.GetChild(0).GetChild(1).GetChild(0).GetChild(0).transform.GetComponent<MonitorHP>().temptHP)
                         {   // if the neighbor enemy belongs to backrow and has higher temptHP than current enemy
                             // apply changes to the main EnemyBoard

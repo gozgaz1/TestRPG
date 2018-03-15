@@ -7,8 +7,8 @@ using UnityEngine.UI;
 // Might want to separate the hover functionalities to a different script...
 // if a unit is dead, use color 6F2828FF
 
-public class Clicking : MonoBehaviour, IPointerEnterHandler,IPointerClickHandler, IPointerDownHandler, IPointerExitHandler,IPointerUpHandler {
-    private Vector3 moving = new Vector3(7, 3);
+public class Clicking : MonoBehaviour, IPointerUpHandler,IPointerClickHandler, IPointerDownHandler {//, IPointerExitHandler,IPointerEnterHandle {
+    private Vector3 moving = new Vector3(10, 5);
     public static GameObject firstChosen = null;
     public static GameObject secondChosen = null;
     public static Transform tempt = null;
@@ -18,7 +18,7 @@ public class Clicking : MonoBehaviour, IPointerEnterHandler,IPointerClickHandler
     public int FinalStrike;
     //
 
-    public Vector3 startingPos; // might be made to private
+    private Vector3 startingPos; // might be made to private
     //public GameObject InfoCanvas;
     //private Sprite theSprite;
     private bool PowerOn = false;
@@ -68,7 +68,7 @@ public class Clicking : MonoBehaviour, IPointerEnterHandler,IPointerClickHandler
         this.beingSelected = (!this.beingSelected) ? true : false;
 
     }
-
+/*
     public void OnPointerEnter(PointerEventData eventData) {
         //Debug.Log("Hover Over");
 
@@ -77,7 +77,7 @@ public class Clicking : MonoBehaviour, IPointerEnterHandler,IPointerClickHandler
     public void OnPointerExit(PointerEventData eventData) {
 
     }
-
+*/
     public void OnPointerUp(PointerEventData eventData)
     {   if (Switching.switchAble && firstChosen == null && secondChosen == null && this.transform.tag.Equals("Player", System.StringComparison.OrdinalIgnoreCase))
         {
@@ -110,6 +110,8 @@ public class Clicking : MonoBehaviour, IPointerEnterHandler,IPointerClickHandler
 
             if (!(one == two && firstChosen.transform.parent == secondChosen.transform.parent))
             {
+                ApplyEffect(firstChosen);
+                ApplyEffect(secondChosen);
                 tempt = firstChosen.transform.parent;
                 firstChosen.transform.SetParent(secondChosen.transform.parent);
                 firstChosen.transform.SetSiblingIndex(two);
@@ -123,8 +125,11 @@ public class Clicking : MonoBehaviour, IPointerEnterHandler,IPointerClickHandler
                     ShiftToNormal(firstChosen.transform.GetChild(0).transform.gameObject);
                     ShiftToNormal(secondChosen.transform.GetChild(0).transform.gameObject);
 
+                    
                 }
+
                 //Debug.Log(firstChosen.transform.parent.transform.GetChild(firstChosen.transform.GetSiblingIndex()));
+
                 firstChosen = null;
                 secondChosen = null;
                 tempt = null;
@@ -136,6 +141,17 @@ public class Clicking : MonoBehaviour, IPointerEnterHandler,IPointerClickHandler
             }
         }
 
+    }
+
+    public void ApplyEffect(GameObject obj) {
+        
+        GameObject explosive = Instantiate(Resources.Load("Explosion") as GameObject);
+        //explosive.transform.position = new Vector3(5, 5, 0);
+        //Debug.Log("Normal pos: " + obj.transform.position.x + ", " + obj.transform.position.y);
+        //Debug.Log("Anchored pos: " + obj.transform.GetComponent<RectTransform>().anchoredPosition.x + ", " + obj.transform.GetComponent<RectTransform>().anchoredPosition.y);
+        explosive.transform.position = new Vector3(obj.transform.position.x, obj.transform.position.y - obj.transform.GetComponent<RectTransform>().anchoredPosition.y - moving.x, obj.transform.position.z);
+        explosive.transform.GetChild(0).GetComponent<ParticleSystem>().Play();
+        Destroy(explosive, .60f);
     }
 
     void Update() {
