@@ -29,7 +29,7 @@ public class StartTurn : AvailableState, GameState{
 	public int getStateID{get{return 0;}}
 
 	public override void ResetTime(){
-		timing = 8;
+		timing = (float)0.2;
 	}
 
 	//
@@ -69,7 +69,7 @@ public class StartTurn : AvailableState, GameState{
         foreach (GameObject enemyUnit in EnemyBoard.Keys) {
             enemyUnit.transform.SetParent(EnemyBoard[enemyUnit].Key.transform);
             enemyUnit.transform.SetSiblingIndex(EnemyBoard[enemyUnit].Value);
-            Debug.Log(enemyUnit + " at "+ EnemyBoard[enemyUnit]);
+            //Debug.Log(enemyUnit + " at "+ EnemyBoard[enemyUnit]);
         }
     }
 

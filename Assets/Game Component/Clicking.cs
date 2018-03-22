@@ -150,7 +150,7 @@ public class Clicking : MonoBehaviour, IPointerUpHandler,IPointerClickHandler, I
         //Debug.Log("Normal pos: " + obj.transform.position.x + ", " + obj.transform.position.y);
         //Debug.Log("Anchored pos: " + obj.transform.GetComponent<RectTransform>().anchoredPosition.x + ", " + obj.transform.GetComponent<RectTransform>().anchoredPosition.y);
         explosive.transform.position = new Vector3(obj.transform.position.x, obj.transform.position.y - obj.transform.GetComponent<RectTransform>().anchoredPosition.y - moving.x, obj.transform.position.z);
-        explosive.transform.GetChild(0).GetComponent<ParticleSystem>().Play();
+        //explosive.transform.GetChild(0).GetComponent<ParticleSystem>().Play();
         Destroy(explosive, .60f);
     }
 

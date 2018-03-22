@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EndTurn : AvailableState, GameState{
-	public float endingIn = (float)0.2;
+	public float endingIn = (float)0.9;
 	private bool Availability = false;
 
     // Update is called once per frame
@@ -17,7 +17,7 @@ public class EndTurn : AvailableState, GameState{
 	public int getStateID{get{return 3;}}
 
 	public override void ResetTime(){
-		endingIn = 8;
+		endingIn = (float)0.9;
 	}
 
 	//

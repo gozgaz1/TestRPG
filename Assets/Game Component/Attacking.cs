@@ -72,6 +72,7 @@ public class Attacking : MonoBehaviour {
             (obj.transform.GetComponent<ApplyAbility>().AbilityList[0].Damage * obj.transform.GetComponent<ApplyAbility>().AbilityList[0].AmountOfHits) * multiRetaliate;
         tar.transform.GetComponent<MonitorHP>().temptHP += 
             (obj.transform.GetComponent<ApplyAbility>().AbilityList[0].Heal * obj.transform.GetComponent<ApplyAbility>().AbilityList[0].AmountOfHits) * multiRetaliate;
+        ApplyBattleEffect(tar);
         tar.transform.GetComponent<HealthBar>().SetHealth(tar.transform.GetComponent<MonitorHP>().temptHP, tar.transform.GetComponent<ApplyCharacter>().theChar.HP);
     }
 
@@ -92,5 +93,11 @@ public class Attacking : MonoBehaviour {
         ApplyDamageAndHeal(firstSelect, secondSelect, 1);
         // apply damage from enemy (retaliate)
         ApplyDamageAndHeal(secondSelect, firstSelect, firstSelect.transform.GetComponent<ApplyAbility>().AbilityList[0].AmountOfHits);
+    }
+
+    public void ApplyBattleEffect(GameObject obj) {
+        GameObject attacked = Instantiate(Resources.Load("Damage") as GameObject);
+        attacked.transform.position = new Vector3(obj.transform.position.x, obj.transform.position.y - obj.transform.GetComponent<RectTransform>().anchoredPosition.y + 5, obj.transform.position.z);
+        Destroy(attacked, .35f);
     }
 }
